@@ -45,14 +45,15 @@ const Slide = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  padding: 20px 50px;
+
   background-color: #${props => props.bg};
   ${mobile({ padding: 0, height: "100%" })}
 `;
 const ImgContainer = styled.div`
   flex: 1;
-  height: 100%;
+  height: 90%;
   width: 100%;
+  margin: 30px;
 `;
 const Image = styled.img`
   height: 100%;

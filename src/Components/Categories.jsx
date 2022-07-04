@@ -13,13 +13,18 @@ const CategoryTitle = styled.h1`
   text-align: center;
   margin-bottom: 2px;
 `;
+const CategoryContainer = styled.div`
+  display: flex;
+`;
 const Categories = () => {
   return (
     <Container>
       <CategoryTitle>Categories</CategoryTitle>
-      {Category.map(item => (
-        <CategoryItem item={item} key={item.id} />
-      ))}
+      <CategoryContainer>
+        {Category.map(item => (
+          <CategoryItem item={item} key={item.id} />
+        ))}
+      </CategoryContainer>
     </Container>
   );
 };
