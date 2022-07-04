@@ -6,10 +6,11 @@ import { useState } from "react";
 import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100%;
-  height: 70vh;
+  height: 100vh;
   display: flex;
   position: relative;
   overflow: hidden;
+  ${mobile({ height: "70vh" })}
 `;
 const Arrow = styled.div`
   width: 50px;

@@ -7,6 +7,7 @@ const Container = styled.div`
   display: flex;
   padding: 20px;
   ${mobile({ padding: "0px", flexDirection: "column" })}
+  flex-direction: column;
 `;
 const CategoryTitle = styled.h1`
   text-align: center;
