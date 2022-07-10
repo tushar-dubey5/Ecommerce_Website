@@ -5,6 +5,7 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   flex: 1;
   margin: 5px;
@@ -58,8 +59,8 @@ const Product = ({ item }) => {
     <Container>
       <Image
         src={
-          item && item.img
-            ? item.img
+          item && item.image
+            ? item.image
             : "https://cdn.pixabay.com/photo/2020/06/09/08/01/model-5277459_640.jpg"
         }
       />
@@ -71,7 +72,9 @@ const Product = ({ item }) => {
           <FavoriteBorderOutlined />
         </Icon>
         <Icon>
-          <SearchOutlined />
+          <Link to={`/product/${item._id}`}>
+            <SearchOutlined />
+          </Link>
         </Icon>
       </Info>
     </Container>

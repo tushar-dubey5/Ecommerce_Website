@@ -15,6 +15,7 @@ const CategoryTitle = styled.h1`
 `;
 const CategoryContainer = styled.div`
   display: flex;
+  ${mobile({ padding: "0px", flexDirection: "column" })}
 `;
 const Categories = () => {
   return (

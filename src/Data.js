@@ -42,35 +42,43 @@ export const Category = [
 
 export const ProductItems = [
   {
-    id: 1,
+    _id: 1,
     img: "https://4.imimg.com/data4/AA/HC/MY-26596027/men-s-fancy-t-shirt-500x500.jpg",
+    size: "L",
+    category: "man",
   },
   {
-    id: 2,
+    _id: 2,
     img: "https://assets.ajio.com/medias/sys_master/root/h09/hcd/12085139111966/-1117Wx1400H-440794191-mediumblue-MODEL.jpg",
+    size: "M",
   },
   {
-    id: 3,
+    _id: 3,
     img: "https://i.pinimg.com/474x/c4/e6/89/c4e689ee7f9c56de2b5c4564d311a5a4.jpg",
+    size: "M",
   },
   {
-    id: 4,
+    _id: 4,
     img: "https://m.media-amazon.com/images/I/61P5SIALjrL._UL1280_.jpg",
+    size: "M",
   },
   {
-    id: 5,
+    _id: 5,
     img: "https://s3.us-east-2.amazonaws.com/travelfashiongirlpostphotos/2017/Best+T-Shirts+for+Women/best-t-shirts-for-women-25.2.jpg",
+    size: "M",
   },
   {
-    id: 6,
+    _id: 6,
     img: "https://cdn.shopify.com/s/files/1/0752/6435/products/KNETTOPINKJACKET_27.jpg?v=1634058839",
   },
   {
-    id: 7,
+    _id: 7,
     img: "https://m.media-amazon.com/images/I/51m2pd8wmrL._UL1024_.jpg",
+    size: "M",
   },
   {
-    id: 8,
+    _id: 8,
     img: "https://cdn.shopify.com/s/files/1/1950/6115/products/0120033831_m.jpg?v=1635497028",
+    size: "M",
   },
 ];

@@ -4,6 +4,10 @@ import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import { Remove, Add, RemoveCircle, AddAlarm } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import axios from "axios";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -13,8 +17,9 @@ const Wrapper = styled.div`
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 const ImgContainer = styled.div`
-  height: 100vh;
+  height: 70vh;
   flex: 1;
+  margin: 0 20px;
 `;
 const Image = styled.img`
   height: 100%;
@@ -73,6 +78,8 @@ const Option = styled.option`
 `;
 
 const QuantityContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   ${mobile({ width: "100%", display: "flex", justifyContent: "space-between" })}
 `;
 const AmountContainer = styled.div`
@@ -88,7 +95,7 @@ const Quantity = styled.span`
   margin: 10px;
 `;
 const Button = styled.button`
-  padding: 0px 6px;
+  padding: 12px;
   background-color: teal;
   border: 1px solid skyblue;
   font-size: 15px;
@@ -103,47 +110,73 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  console.log(id);
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(`http://localhost:4000/api/products/${id}`);
+        console.log(res);
+        setProduct(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProduct();
+  }, [id]);
+
+  const handleQuantity = type => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
   return (
     <Container>
       <Announcement />
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/21348573-c6ed-461c-b9a3-722cd4624864/da7f7j1-7b12cfd6-f322-43eb-9c31-c2e65d11c9ce.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzIxMzQ4NTczLWM2ZWQtNDYxYy1iOWEzLTcyMmNkNDYyNDg2NFwvZGE3ZjdqMS03YjEyY2ZkNi1mMzIyLTQzZWItOWMzMS1jMmU2NWQxMWM5Y2UucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.cTaaDjyL3nFf4neemOYQZRDam9_wXBMbGJ29HQQjdD8" />
+          <Image src={product.image} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-            laborum? Obcaecati, iste! Tempore reprehenderit exercitationem
-            minima eveniet harum dolores tenetur labore architecto atque!
-          </Desc>
-          <Price>$20</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>${product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black"></FilterColor>
-              <FilterColor color="blue"></FilterColor>
-              <FilterColor color="red"></FilterColor>
-              <FilterColor color="green"></FilterColor>
-              <FilterColor color="yellow"></FilterColor>
+              {product.color?.map(c => (
+                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+              ))}
             </Filter>
             <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <Select>
-                <Option>XS</Option>
-                <Option>S</Option>
-                <Option>M</Option>
-                <Option>L</Option>
-                <Option>Xl</Option>
+              <FilterTitle></FilterTitle>
+              <Select onChange={e => setSize(e.target.value)}>
+                {product.size?.map(s => (
+                  <Option>{s}</Option>
+                ))}
               </Select>
             </Filter>
           </FilterContainer>
           <QuantityContainer>
             <AmountContainer>
-              <Remove style={{ cursor: "pointer" }} />
-              <Quantity>2</Quantity>
-              <Add style={{ cursor: "pointer" }} />
+              <Remove
+                onClick={() => handleQuantity("dec")}
+                style={{ cursor: "pointer" }}
+              />
+              <Quantity>{quantity}</Quantity>
+              <Add
+                onClick={() => handleQuantity("inc")}
+                style={{ cursor: "pointer" }}
+              />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </QuantityContainer>

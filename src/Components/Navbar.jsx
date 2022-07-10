@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
+import ".././style.css";
 const Container = styled.div`
   height: 60px;
   display: flex;
@@ -51,10 +53,15 @@ const MenuItem = styled.span`
   cursor: pointer;
   font-size: 20px;
   font-weight: 500;
+
   ${mobile({ fontSize: "16px" })}
 `;
 const Logo = styled.h1`
   font-size: 50px;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+
   ${mobile({ fontSize: "24px" })}
 `;
 const Right = styled.div`
@@ -64,6 +71,7 @@ const Right = styled.div`
   align-items: center;
   ${mobile({ justifyContent: "center" })}
 `;
+
 const Navbar = () => {
   return (
     <Container>
@@ -76,11 +84,21 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>.SnapNap</Logo>
+          <Link className="link" to="/">
+            <Logo>.SnapNap</Logo>
+          </Link>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Login</MenuItem>
+          <MenuItem>
+            <Link className="link" to="/register">
+              Register
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link className="link" to="/login">
+              Login
+            </Link>
+          </MenuItem>
           <MenuItem>
             <Badge badgeContent={3} overlap="rectangular">
               <ShoppingCartOutlined />
