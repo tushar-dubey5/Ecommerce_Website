@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import Saree from "../Pictures/Dress.jpg";
+
 import { Data } from "../Data";
 import { useState } from "react";
 import { mobile } from "../responsive";

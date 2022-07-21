@@ -43,7 +43,8 @@ const Option = styled.option``;
 
 const ProductsPage = () => {
   const location = useLocation();
-  const Cat = location.pathname.split("/")[2];
+  const cat = location.pathname.split("/")[2];
+
   const [filter, setfilter] = useState({});
   const [sort, setSort] = useState("newest");
 
@@ -54,7 +55,7 @@ const ProductsPage = () => {
       [e.target.name]: value,
     });
   };
-  console.log(filter);
+
   return (
     <Container>
       <Announcement />
@@ -91,7 +92,7 @@ const ProductsPage = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products cat={Cat} filter={filter} sort={sort} />
+      <Products cat={cat} filter={filter} sort={sort} />
       <Footer />
     </Container>
   );

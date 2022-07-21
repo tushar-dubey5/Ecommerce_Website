@@ -4,6 +4,7 @@ import Announcement from "../Components/Announcement";
 import Footer from "../Components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -126,6 +127,7 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart = useSelector(state => state.cart);
   return (
     <Container>
       <Navbar />
@@ -142,72 +144,50 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDatails>
-                <Image src="https://brooksrunning-sa.co.za/wp-content/uploads/2021/06/110369_438_A_Ghost_14.jpg" />
-                <Details>
-                  <ProductName>
-                    <b>Product: </b>
-                    Brooks Running South Africa
-                  </ProductName>
-                  <ProductID>
-                    <b>ID: </b>12901
-                  </ProductID>
-                  <ProductColor color="#2b2b49" />
-                  <ProductSize>
-                    <b>Size: </b>42
-                  </ProductSize>
-                </Details>
-              </ProductDatails>
-              <PriceDatails>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <Price>$20</Price>
-              </PriceDatails>
-            </Product>
+            {cart.products.map(product => (
+              <Product>
+                <ProductDatails>
+                  <Image src={product.image} />
+                  <Details>
+                    <ProductName>
+                      <b>Product: </b>
+                      {product.title}
+                    </ProductName>
+                    <ProductID>
+                      <b>ID: </b>
+                      {product._id}
+                    </ProductID>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size: </b>
+                      {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDatails>
+                <PriceDatails>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <Price>${product.price}</Price>
+                </PriceDatails>
+              </Product>
+            ))}
             <hr></hr>
-            <Product>
-              <ProductDatails>
-                <Image src="https://www.reliancedigital.in/medias/Noise-Colorfit-Pro-2-Smart-Watch-491900986-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w1MDc0NXxpbWFnZS9qcGVnfGltYWdlcy9oYzkvaDdjLzk1OTE4MjA3NDY3ODIuanBnfDA3MjZlMzkzOTExYzMyNzk5Y2YzOTk0MWFkMjc5YjE5OTlkMDE4NzYzYTg1YzQ2YmNjZjMxYzc5ZDJiYjBlNDg" />
-                <Details>
-                  <ProductName>
-                    <b>Product: </b>
-                    Noise ColorFit Pro 2 Smart Watch
-                  </ProductName>
-                  <ProductID>
-                    <b>ID: </b>98901
-                  </ProductID>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size: </b>12
-                  </ProductSize>
-                </Details>
-              </ProductDatails>
-              <PriceDatails>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <Price>$6</Price>
-              </PriceDatails>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>Order Summary</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              {/* <SummaryItemPrice>$46</SummaryItemPrice> */}
+              <SummaryItemPrice>$46</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping </SummaryItemText>
-              {/* <SummaryItemPrice>$10</SummaryItemPrice> */}
+              <SummaryItemPrice>$10</SummaryItemPrice>
             </SummaryItem>
             <SummaryItemText>Discount</SummaryItemText>
-            {/* <SummaryItemPrice>-$10</SummaryItemPrice> */}
+            <SummaryItemPrice>-$10</SummaryItemPrice>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
               {/* <SummaryItemPrice>$46</SummaryItemPrice> */}

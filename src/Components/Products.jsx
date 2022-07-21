@@ -3,8 +3,11 @@ import styled from "styled-components";
 import Product from "./Product";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Container = styled.div``;
+const Container = styled.div`
+  background-color: #d4dedf;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -16,6 +19,7 @@ const ProductTitle = styled.h1`
   text-align: center;
   margin-bottom: 2px;
 `;
+
 const Products = ({ cat, sort, filter }) => {
   const [products, setProducts] = useState([]);
   const [FilteredProduct, setFilteredProduct] = useState([]);
@@ -44,13 +48,27 @@ const Products = ({ cat, sort, filter }) => {
       );
     console.log(FilteredProduct);
   }, [products, cat, filter]);
+
+  useEffect(() => {
+    if (sort === "newest") {
+      setFilteredProduct(prev =>
+        [...prev].sort((a, b) => a.createsAt - b.createsAt)
+      );
+    } else if (sort === "asc") {
+      setFilteredProduct(prev => [...prev].sort((a, b) => a.price - b.price));
+    } else {
+      setFilteredProduct(prev => [...prev].sort((a, b) => b.price - a.price));
+    }
+  });
   return (
     <Container>
       <ProductTitle>Products</ProductTitle>
       <Wrapper>
-        {products.map(item => (
-          <Product item={item} key={item._id} />
-        ))}
+        {cat
+          ? FilteredProduct.map(item => <Product item={item} key={item._id} />)
+          : products
+              .slice(0, 8)
+              .map(item => <Product item={item} key={item._id} />)}
       </Wrapper>
     </Container>
   );

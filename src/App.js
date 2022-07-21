@@ -5,7 +5,7 @@ import Product from "./Pages/Product";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Cart from "./Pages/Cart";
-import Pay from "./Payment/pay";
+import Pay from "./Components/Pay";
 
 import {
   BrowserRouter as Router,
@@ -26,7 +26,7 @@ function App() {
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}
           />
-          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:cat" element={<ProductsPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pay" element={<Pay />} />
           <Route path="/" element={<Home />} />
