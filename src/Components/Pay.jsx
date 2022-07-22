@@ -48,20 +48,7 @@ const Pay = () => {
         amount={3000}
         token={ontoken}
         stripeKey={KEY}
-      >
-        <button
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "30px",
-            padding: "12px",
-            cursor: "pointer",
-          }}
-        >
-          Pay Now
-        </button>
-      </StripeCheckout>
+      ></StripeCheckout>
     </div>
   );
 };

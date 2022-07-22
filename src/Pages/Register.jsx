@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../Components/Navbar";
 import { mobile } from "../responsive";
@@ -51,23 +54,93 @@ const Button = styled.button`
   border-radius: 7px;
   color: white;
 `;
+
 const Register = () => {
+  const [user, setUser] = useState({
+    username: "",
+    name: "",
+    email: "",
+    phonenumber: "",
+    password: "",
+  });
+  let name, value;
+  const navigate = useNavigate();
+  const handleInput = e => {
+    console.log(e);
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const { username, name, email, phonenumber, password } = user;
+
+    try {
+      axios
+        .post("http://localhost:4000/api/auth/register", {
+          username,
+          name,
+          password,
+          email,
+          phonenumber,
+        })
+        .then(res => console.log(res));
+      // const data = await res.json();
+      // if (data.status(500) || !data) {
+      //   window.alert("Invalid Registration");
+      //   console.log("Invalid");
+      // } else {
+      //   window.alert("Successs");
+      //   console.log("Success");
+      //   console.log(username, name, email, phonenumber, password);
+      // }
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="First Name" />
-          <Input placeholder="Last Name" />
-          <Input placeholder="Email" />
-          <Input maxLength="9" type="number" placeholder="Contact Number" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
+        <Form method="POST">
+          <Input
+            placeholder=" Username"
+            name="username"
+            onChange={handleInput}
+            value={user.username}
+          />
+          <Input
+            placeholder="Your Name"
+            name="name"
+            onChange={handleInput}
+            value={user.name}
+          />
+          <Input
+            placeholder="Email"
+            name="email"
+            onChange={handleInput}
+            value={user.email}
+          />
+          <Input
+            type="number"
+            placeholder="Contact Number"
+            name="phonenumber"
+            onChange={handleInput}
+            value={user.phonenumber}
+          />
+          <Input
+            placeholder="Password"
+            name="password"
+            onChange={handleInput}
+            value={user.password}
+          />
+
           <Agreement>
             By creating an coount, I agree to the processing of my personal data
             in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE ACCOUNT</Button>
+          <Button onClick={handleSubmit}>CREATE ACCOUNT</Button>
         </Form>
       </Wrapper>
     </Container>
